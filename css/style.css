@@ -58,7 +58,6 @@ li {
   transition: all .5s;
   z-index: 20;
   opacity: 0;
-
 }
 
 #navi a {
@@ -84,12 +83,14 @@ li {
 #navi ul.nav-menu li{
   position: relative;
   margin: 0;
-  padding: 20px 0;
+  text-align: center;
+  padding: 20px;
   border-bottom: solid 1px #fff;
 }
 
 #navi ul.nav-sns li{
   padding: 5px 0;
+  text-align: center;
 }
 
 /* ハンバーガーメニューを設置 */
@@ -362,6 +363,18 @@ li {
   text-align: center;
   padding: 10px;
   font-size: 0.75rem;
+}
+
+/* 画像フェードイン用のクラス */
+.fadein {
+  opacity: 0.3;
+  transform: translateY(20px);
+  transition: all .5s;
+}
+
+.scrollin {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* レスポンシブ対応 */

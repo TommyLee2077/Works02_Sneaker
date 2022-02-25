@@ -6,11 +6,39 @@ const ham_menu = document.getElementById('toggle_btn');
 const navi_menu = document.getElementById('navi');
 const navi_mask = document.getElementById('mask');
 
-ham_menu.addEventListener('click', ()=>{
+function toggleClass(){
   ham_menu.classList.toggle('show');
   navi_menu.classList.toggle('show');
   navi_mask.classList.toggle('show');
+};
+
+ham_menu.addEventListener('click', ()=>{
+  toggleClass();
 });
+
+// #maskのエリアをクリックした時にメニューを閉じる
+navi_mask.addEventListener('click',() => {
+  toggleClass();
+});
+
+//ハンバーガーメニューのクリック遷移
+const menuClick =document.querySelectorAll('#navi a[href^="#"]');
+const headerHeight = document.getElementById('header').clientHeight;
+console.log(menuClick);
+for(let i = 0;i<menuClick.length;i++){
+  menuClick[i].addEventListener('click', (e) => {
+    e.preventDefault();
+    toggleClass();
+    const target =document.querySelector(menuClick[i].hash);
+    const rect = document.querySelector(menuClick[i].hash).getBoundingClientRect().top;
+    const scroll = window.pageYOffset || document.documentElement.scrollTop;
+    const top = rect + scroll - headerHeight;
+    window.scrollTo({
+      top,
+      behavior: "smooth"
+      });
+  });
+};
 
 //カルーセル実装
 const next = document.getElementById('next');
@@ -31,7 +59,7 @@ function updateButtons(){
   if(currentIndex === slides.length-1){
     next.classList.add('hidden');
   }
-}
+};
 
 //スライドを移動
 function moveSlides(){
@@ -61,7 +89,7 @@ function updateDots(){
     dot.classList.remove('current');
   });
   dots[currentIndex].classList.add('current');
-}
+};
 
 updateButtons();
 setupDots();
@@ -85,4 +113,16 @@ window.addEventListener('resize',() => {
   moveSlides();
 });
 
-
+//スクロールにより画像フェードイン
+let fadeinTarget = document.querySelectorAll('.fadein');
+window.addEventListener('scroll',() => {
+  for(let i =0;i<fadeinTarget.length;i++){
+    const rect =fadeinTarget[i].getBoundingClientRect().top;
+    const scroll = window.pageYOffset || document.documentElement.scrollTop;
+    const offset = rect + scroll;
+    const windowHeight =window.innerHeight;
+    if(scroll > offset - windowHeight +200){
+      fadeinTarget[i].classList.add('scrollin');
+    }
+  }
+});
